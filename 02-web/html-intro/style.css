@@ -1,0 +1,32 @@
+body {
+  background-color: plum;
+}
+
+.outer h1 {
+  text-align: center;
+}
+
+#menu {
+  background-color: tomato;
+}
+
+#menu li {
+  list-style-type: none;
+}
+
+.warning {
+  color: lime;
+}
+
+em.desire {
+  font-size: 100%;
+}
+
+.desire {
+  font-size: 400%;
+}
+
+article > p {
+  background-color: yellow;
+}
+

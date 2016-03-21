@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.banner1 {
+  background-color: pink;
+}
+
+.banner2 {
+  background-color: plum;
+  height: 200px;
+  /*width: 100px;*/
+  border: 20px solid black;
+  /*padding: 5px;*/
+}
+
+span {
+  color: blue;
+}
+
+img {
+  width: 100%;
+}
+
+.logos > img {
+  width: 25%;
+}
+
+
+h2 {
+  text-align: center;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
