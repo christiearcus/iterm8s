@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  width: 90%;
+}
+
+nav ul {
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  width: 100px;
+}
+
+.box {
+  height: 100px;
+}
+
+.box-a {
+  background-color: pink;
+}
+
+.box-b {
+  background-color: tomato;
+  float: left;
+  /*display: inline-block;*/
+  width: 50%;
+}
+
+.box-c {
+  float: left;
+  background-color: linen;
+  /*display: inline-block;*/
+  width: 50%;
+}
+
+article {
+  border-bottom: 1px solid gray;
+}
