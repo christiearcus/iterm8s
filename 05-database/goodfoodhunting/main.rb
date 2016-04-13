@@ -43,6 +43,23 @@ get '/dishes/:id/edit' do
   erb :edit
 end
 
+# update existing dish
+patch '/dishes/:id' do
+  # update the existing dish from db
+  sql = "UPDATE dishes SET name = '#{ params[:name] }', image_url = '#{ params[:image_url] }' WHERE id = #{ params[:id] };"
+  run_sql(sql)
+  
+  redirect to '/'
+end
+
+delete '/dishes/:id' do
+
+  sql = "DELETE FROM dishes WHERE id = #{params[:id] }"
+
+  run_sql(sql)
+  redirect to '/'
+end
+
 
 
 
