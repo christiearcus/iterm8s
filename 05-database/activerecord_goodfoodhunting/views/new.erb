@@ -5,5 +5,16 @@
   <label for="">image url</label>
   <input type="text" name="image_url">
 
+  <label for="">dish_type</label>
+  <select name="dish_type_id" id="">
+
+    <% @dish_types.each do |dish_type| %>
+    <option value="<%= dish_type.id %>">
+      <%= dish_type.name %>
+    </option>
+    <% end %>
+
+  </select>
+
   <button>create dish</button>
 </form>

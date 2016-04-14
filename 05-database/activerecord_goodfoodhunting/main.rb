@@ -20,12 +20,23 @@ end
 
 # list all dish
 get '/' do # request
-  @dishes = Dish.all
+  # return params.inspect
+  @dish_types = DishType.all
+  # filter my dishes based on the selected dish_type_id
+  if params[:id]
+    # if user pass in id as a querystring
+    @dishes = Dish.where(dish_type_id: params[:id])
+  else
+    # just get all dishes
+    @dishes = Dish.all
+  end
+
   erb :index
 end
 
 # show new dish form
 get '/dishes/new' do
+  @dish_types = DishType.all
   erb :new
 end 
 
@@ -33,7 +44,8 @@ end
 post '/dishes' do
   dish = Dish.new
   dish.name = params[:name]
-  dish.image_url = params[:name]
+  dish.image_url = params[:image_url]
+  dish.dish_type_id = params[:dish_type_id]
   dish.save
   redirect to '/'
 end
