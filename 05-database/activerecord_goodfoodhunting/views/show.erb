@@ -2,11 +2,24 @@
 
 <img src="<%= @dish.image_url %>" alt="">
 
-<p><%= @dish.dish_type_id %></p>
+<p><%= @dish.dish_type.name if @dish.dish_type %></p>
 
 <a href="/dishes/<%= @dish.id %>/edit">edit dish</a>
 
 <form action="/dishes/<%= @dish.id %>" method="post">
   <input type="hidden" value="delete" name="_method">
   <button>delete</button>
+</form>
+
+<h2>comments</h2>
+
+<% @comments.each do |comment| %>
+  <p><%= comment.body %></p>
+<% end %>
+
+<form action="/dishes/<%= @dish.id%>/comments" method="post">
+  <textarea name="body">
+    
+  </textarea>
+  <button>post</button>
 </form>

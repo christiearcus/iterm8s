@@ -28,3 +28,9 @@ ALTER TABLE dishes ADD dish_type_id INTEGER;
 
 
 -- select * from dishes join dish_types on (dishes.dish_type_id = dish_types.id);
+
+CREATE TABLE comments (
+  id SERIAL4 PRIMARY KEY,
+  body VARCHAR(800) NOT NULL,
+  dish_id INTEGER
+);

@@ -5,6 +5,7 @@ require 'pg'
 require './db_config'
 require './models/dish'
 require './models/dish_type'
+require './models/comment'
 
 def run_sql(sql)
   db = PG.connect(dbname: 'goodfoodhunting')
@@ -53,12 +54,14 @@ end
 # show single dish
 get '/dishes/:id' do
   @dish = Dish.find(params[:id])
+  @comments = @dish.comments
   erb :show
 end
 
 # show edit dish form
 get '/dishes/:id/edit' do
   @dish = Dish.find(params[:id])
+  @dish_types = DishType.all
   erb :edit
 end
 
@@ -67,7 +70,8 @@ patch '/dishes/:id' do
   # update the existing dish from db
   dish = Dish.find(params[:id])
   dish.name = params[:name]
-  dish.image_url = params[:name]
+  dish.image_url = params[:image_url]
+  dish.dish_type_id = params[:dish_type_id]
   dish.save
   redirect to '/'
 end
@@ -76,6 +80,15 @@ delete '/dishes/:id' do
   dish = Dish.find(params[:id])
   dish.destroy
   redirect to '/'
+end
+
+post '/dishes/:dish_id/comments' do
+  # create a new comment for dish with dish_id
+  comment = Comment.new
+  comment.body = params[:body]
+  comment.dish_id = params[:dish_id]
+  comment.save
+  redirect to "/dishes/#{ params[:dish_id] }"
 end
 
 
