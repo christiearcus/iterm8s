@@ -6,6 +6,27 @@ require './db_config'
 require './models/dish'
 require './models/dish_type'
 require './models/comment'
+require './models/user'
+
+enable :sessions
+
+helpers do
+
+  def current_user
+    User.find_by(id: session[:user_id])
+  end
+
+  def logged_in?
+    !!current_user
+
+    # if current_user
+    #   return true
+    # else
+    #   return false
+    # end
+  end
+
+end
 
 def run_sql(sql)
   db = PG.connect(dbname: 'goodfoodhunting')
@@ -37,6 +58,8 @@ end
 
 # show new dish form
 get '/dishes/new' do
+  redirect to '/session/new' if !logged_in?
+
   @dish_types = DishType.all
   erb :new
 end 
@@ -89,6 +112,28 @@ post '/dishes/:dish_id/comments' do
   comment.dish_id = params[:dish_id]
   comment.save
   redirect to "/dishes/#{ params[:dish_id] }"
+end
+
+get '/session/new' do
+  erb :login
+end
+
+post '/session' do
+  user = User.find_by(email: params[:email])
+  if user && user.authenticate(params[:password])
+    # we're in! create a new session
+    session[:user_id] = user.id
+    # redirect
+    redirect to '/'
+  else
+    # stay at the login form
+    erb :login
+  end
+end
+
+delete '/session' do
+  session[:user_id] = nil
+  redirect to '/'
 end
 
 
