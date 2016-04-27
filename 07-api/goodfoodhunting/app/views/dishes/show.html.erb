@@ -1,0 +1,10 @@
+<%= @dish.name %>
+
+
+<form action="/dishes/<%= @dish.id %>" method="post">
+
+  <input type="hidden" value="delete" name="_method">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  
+  <button>delete</button>
+</form>
