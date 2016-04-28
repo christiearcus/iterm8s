@@ -3,6 +3,7 @@ class DishesController < ApplicationController
   # automagically looks for a template with the same name as the method
   def index
     @dishes = Dish.all
+    binding.pry
   end
 
   def new
