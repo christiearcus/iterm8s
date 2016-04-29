@@ -1,4 +1,6 @@
 <h1>goodfoodhunting</h1>
+
+<% @dishes.each do |dish| %>
 <div class="ui-card">
   <header class="content">
     <div class="right">14h</div>
@@ -6,41 +8,69 @@
   </header>
 
   <div class="image">
-    <img src="http://i.imgur.com/vkWXRmE.jpg" alt="">
+    <img src="<%= dish.image_url %>" alt="">
     <span class="star">&#9733;</span>
   </div>
 
   <div class="content">
-    <h2>cakepudding</h2>
+    <h2><%= dish.name %></h2>
     <h4>at GA</h4>  
   </div>
 
   <footer class="content">
-    <span class="right">25</span>
+    <span class="right counter"><%= dish.likes.count %></span>
     <span>bookmark</span>
   </footer>
 </div>
+<% end %>
 
-<div class="ui-card">
-  <header class="content">
-    <div class="right">14h</div>
-    <img class="avatar" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" alt=""> DT
-  </header>
 
-  <div>
-    <img src="http://i.imgur.com/vkWXRmE.jpg" alt="">
-  </div>
 
-  <div class="content">
-    <h2>cakepudding</h2>
-    <h4>at GA</h4>  
-  </div>
+<script>
+  
+$('.star').on('click',function(event) {
 
-  <footer class="content">
-    <span class="right">25</span>
-    <span>bookmark</span>
-  </footer>
-</div>
+  // make an ajax call to /api/likes
+
+  $.ajax({
+    url: '/api/likes',
+    method: 'post'
+  }).done(function(data) {
+    // post success
+
+    var $countSpan = $(event.target).closest('.ui-card').find('footer .right');
+    $countSpan.html(Number($countSpan.html()) + 1);    
+
+  });
+
+  // inside the done callback function update the html count
+
+  // this === event.target
+  // var $countSpan = $(event.target).closest('.ui-card').find('footer .right');
+  // $countSpan.html(Number($countSpan.html()) + 1);
+
+});
+
+// HTTParty.get('http://www.google.com')
+
+// var horray = function(data) {
+//   console.log('horrray');
+//   console.log(data.id);
+// }
+
+
+// $.ajax({
+//   url: '/api/likes',
+//   method: 'post'
+// }).done(horray);
+
+
+
+
+
+</script>
+
+
 
 
 
