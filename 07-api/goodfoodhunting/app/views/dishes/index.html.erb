@@ -1,7 +1,7 @@
 <h1>goodfoodhunting</h1>
 
 <% @dishes.each do |dish| %>
-<div class="ui-card">
+<div class="ui-card" data-dish-id="<%= dish.id %>">
   <header class="content">
     <div class="right">14h</div>
     <img class="avatar" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" alt=""> DT
@@ -32,16 +32,21 @@ $('.star').on('click',function(event) {
 
   // make an ajax call to /api/likes
 
-  $.ajax({
-    url: '/api/likes',
+  // caching $uiCard
+  var $uiCard = $(event.target).closest('.ui-card');
+  var dishId = $uiCard.data('dish-id');
+
+  var settings = {
+    url: '/api/likes?dish_id=' + dishId,
     method: 'post'
-  }).done(function(data) {
-    // post success
+  }
 
-    var $countSpan = $(event.target).closest('.ui-card').find('footer .right');
+  var incrementStarCount = function() {
+    var $countSpan = $uiCard.find('footer .right');
     $countSpan.html(Number($countSpan.html()) + 1);    
+  }
 
-  });
+  $.ajax(settings).done(incrementStarCount);
 
   // inside the done callback function update the html count
 
