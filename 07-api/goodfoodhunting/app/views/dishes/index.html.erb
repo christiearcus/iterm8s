@@ -1,5 +1,17 @@
 <h1>goodfoodhunting</h1>
 
+<form action="/dishes" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <label for="">name</label>
+  <input type="text" name="name">
+
+  <label for="">image url</label>
+  <input type="text" name="image_url">
+
+  <button id="add-dish">add dish</button>
+</form>
+
+
 <% @dishes.each do |dish| %>
 <div class="ui-card" data-dish-id="<%= dish.id %>">
   <header class="content">
@@ -24,9 +36,25 @@
 </div>
 <% end %>
 
-
-
 <script>
+
+$('#add-dish').on('click', function(event) {
+  event.preventDefault(); // js: i got this, form submission step aside
+  console.log('adding dish');
+
+  var settings = {
+    url: '/api/dishes',
+    method: 'post',
+    data: { name: 'pud', image_url: 'http://nopud.weebly.com/uploads/3/8/6/4/38640483/3590352_orig.jpg' }
+  }
+
+  var happyDays = function() {
+    console.log('happy days');
+  }
+
+  $.ajax(settings).done(happyDays);
+});
+
   
 $('.star').on('click',function(event) {
 
@@ -37,13 +65,15 @@ $('.star').on('click',function(event) {
   var dishId = $uiCard.data('dish-id');
 
   var settings = {
-    url: '/api/likes?dish_id=' + dishId,
+    url: '/api/likes',
+    data: { dish_id: dishId },
     method: 'post'
   }
 
-  var incrementStarCount = function() {
+  var incrementStarCount = function(response) {
+    console.log(response);
     var $countSpan = $uiCard.find('footer .right');
-    $countSpan.html(Number($countSpan.html()) + 1);    
+    $countSpan.html( response.like_count );    
   }
 
   $.ajax(settings).done(incrementStarCount);

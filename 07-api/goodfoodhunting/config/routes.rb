@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :dish_types
 
   get '/api/dishes' => 'api/dishes#index'
+  post '/api/dishes' => 'api/dishes#create'
   post '/api/likes' => 'api/likes#create'
 
   # post '/likes'

@@ -6,4 +6,9 @@ class Dish < ActiveRecord::Base
 
   # name must be at least 3 characters long
   validates :name, length: { minimum: 3 }
+
+
+  def like_count
+    likes.count
+  end
 end

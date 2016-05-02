@@ -11,9 +11,9 @@ module Api
       @like.dish_id = @dish.id 
       @like.save
 
-      # data = { like_count: @dish.like_count }
+      data = { like_count: @dish.like_count }
 
-      render json: @like.to_json, status: 201
+      render json: data, status: 201
     end
 
   end
