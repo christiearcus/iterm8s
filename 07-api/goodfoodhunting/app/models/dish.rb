@@ -1,6 +1,6 @@
 class Dish < ActiveRecord::Base
   belongs_to :dish_type
-  has_many :likes
+  has_many :likes, dependent: :destroy
   #  has_many :users, through: :likes
   has_many :liked_users, through: :likes, source: 'user'
 

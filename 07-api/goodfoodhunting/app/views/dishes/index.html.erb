@@ -3,40 +3,40 @@
 <form action="/dishes" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <label for="">name</label>
-  <input type="text" name="name">
+  <input type="text" name="name" id="dish-name">
 
   <label for="">image url</label>
-  <input type="text" name="image_url">
+  <input type="text" name="image_url" id="dish-image-url">
 
   <button id="add-dish">add dish</button>
 </form>
 
-
-<% @dishes.each do |dish| %>
-<div class="ui-card" data-dish-id="<%= dish.id %>">
-  <header class="content">
-    <div class="right">14h</div>
-    <img class="avatar" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" alt=""> DT
-  </header>
-
-  <div class="image">
-    <img src="<%= dish.image_url %>" alt="">
-    <span class="star">&#9733;</span>
+<div class="dish-list">
+  <% @dishes.each do |dish| %>
+  <div class="ui-card" data-dish-id="<%= dish.id %>">
+    <header class="content">
+      <div class="right">14h</div>
+      <img class="avatar" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" alt=""> DT
+    </header>
+    <div class="image">
+      <img src="<%= dish.image_url %>" alt="">
+      <span class="star">&#9733;</span>
+    </div>
+    <div class="content">
+      <h2><%= dish.name %></h2>
+      <h4>at GA</h4>  
+    </div>
+    <footer class="content">
+      <span class="right counter"><%= dish.likes.count %></span>
+      <span>bookmark</span>
+    </footer>
   </div>
-
-  <div class="content">
-    <h2><%= dish.name %></h2>
-    <h4>at GA</h4>  
-  </div>
-
-  <footer class="content">
-    <span class="right counter"><%= dish.likes.count %></span>
-    <span>bookmark</span>
-  </footer>
+  <% end %>
 </div>
-<% end %>
 
 <script>
+
+
 
 $('#add-dish').on('click', function(event) {
   event.preventDefault(); // js: i got this, form submission step aside
@@ -45,14 +45,37 @@ $('#add-dish').on('click', function(event) {
   var settings = {
     url: '/api/dishes',
     method: 'post',
-    data: { name: 'pud', image_url: 'http://nopud.weebly.com/uploads/3/8/6/4/38640483/3590352_orig.jpg' }
+    data: { name: $('#dish-name').val(), image_url: $('#dish-image-url').val() }
   }
 
-  var happyDays = function() {
+  var happyDays = function(response) {
     console.log('happy days');
+
+    var $header = $('<header class="content"><div class="right">14h</div><img class="avatar" src="https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97200&w=200&h=200" alt=""> DT </header>');
+
+    var $imageTag = $('<img>').attr('src', response.image_url);
+    var $starSpan = $('<span>').addClass('star').html('&#9733;');
+    var $imageDiv = $('<div>').addClass('image').append($imageTag).append($starSpan);
+    var $contentDiv = $('<div>').addClass('content').html('<h2>' + response.name + '</h2><h4>at GA</h4>') ;
+    var $footer = $('<footer>').html('<span class="right counter">'+ response.like_count +'</span><span>bookmark</span>');
+
+    var $newDiv = $('<div>')
+      .addClass('ui-card')
+      .attr('data-dish-id', response.id);
+
+    $newDiv.append( $header );
+    $newDiv.append( $imageDiv );
+    $newDiv.append( $contentDiv );
+    $newDiv.append( $footer );
+
+    $('.dish-list').append( $newDiv );
   }
 
-  $.ajax(settings).done(happyDays);
+  var sadDays = function() {
+    console.log('life sucks');
+  }
+
+  $.ajax(settings).done(happyDays).fail(sadDays);
 });
 
   
