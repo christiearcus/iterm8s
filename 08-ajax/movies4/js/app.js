@@ -17,7 +17,7 @@ var fetchMovies = function(event) {
       var templateString = $('#item-template').html();
       var templateFunction = Handlebars.compile(templateString);
       var html = templateFunction({ title: movie.Title, year: movie.Year });
-      var $newElem = $('<div>').html(html);
+      var $newElem = $(html);
 
       // put it back on the page
       $('.list').append( $newElem );
