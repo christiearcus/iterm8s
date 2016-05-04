@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .item {
+      border: 2px solid purple;
+    }
+
+  </style>
+</head>
+<body>
+  
+  <form id="search-form" action="">
+    <input type="text" id="query">
+    <button id="search-btn">search</button>
+  </form>
+
+  <div class="list">
+  </div>
+
+  <script id="item-template" type="text/x-handlebars-template">
+    <div>
+      <h2>{{title}}</h2>
+      <p>{{year}}</p>
+    </div>
+  </script>
+
+
+  <script src="js/jquery.js"></script>
+  <script src="js/handlebars-v4.0.5.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
