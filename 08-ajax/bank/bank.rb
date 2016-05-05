@@ -1,20 +1,28 @@
-class Account
+module Bank
+  class Account
 
-  def initialize(name = '')
-    @balance = 0
-    @name = name
+    attr_reader :name
+
+    def initialize(options = {})
+      @balance = options[:balance] || 0
+      @name = options[:name]
+    end
+
+    def balance
+      return @balance
+    end
+
+    def deposit(amount)
+      @balance = @balance + amount
+    end
+
+    def withdraw(amount)
+      if amount <= @balance
+        @balance = @balance - amount
+        return @balance
+      else
+        return false
+      end
+    end
   end
-
-  def balance
-    return @balance
-  end
-
-  def deposit(amount)
-    @balance = @balance + amount
-  end
-
-  def name
-    @name
-  end
-
 end
