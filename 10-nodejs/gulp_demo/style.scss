@@ -1,0 +1,35 @@
+$primary-color: purple;
+
+body {
+  background-color: $primary-color;
+}
+
+// .card h2 {
+//   background-color: linen;
+// }
+
+// .card h3 {
+//   background-color: red;
+// }
+
+@mixin abc($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+}
+
+.card {
+
+  h2 {
+    background-color: red;
+    @include abc(50%);
+    user-select: none;
+  }
+
+  h3 {
+    background-color: plum;
+    @include abc(20%);
+  }
+}
+
+

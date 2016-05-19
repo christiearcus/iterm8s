@@ -1,0 +1,17 @@
+body {
+  background-color: mistyrose; }
+
+.card h2 {
+  background-color: red;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
+.card h3 {
+  background-color: plum;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
+
+/*# sourceMappingURL=style.css.map */
